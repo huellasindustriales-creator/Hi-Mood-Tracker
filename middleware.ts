@@ -1,0 +1,20 @@
+import { type NextRequest } from "next/server";
+import { updateSession } from "@lib/supabase/middleware";
+
+export default async function middleware(request: NextRequest) {
+  // Actualizar sesión de Supabase
+  return await updateSession(request);
+}
+
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - files with extensions (.js, .css, .png, etc.)
+     */
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|js|css|woff|woff2|ttf|otf)$).*)",
+  ],
+};
